@@ -1,0 +1,24 @@
+﻿module Config
+
+//===========CONFIIG=================
+    let MACHINE_COUNT = 55
+//------------MACHINE WIZARD---------
+    let TIME_INTERVAL = 100 
+    let PDROP_MACHINE_STATE_MESSAGE = 0.2
+    let PDROP_COMMANG_MESSAGE = 0.1
+    let MACHINE_START_TEMPERATURE_MAX = 75.0
+    let DROP_MACHINE_INTERVAL_MIN = 200
+    let DROP_MACHINE_INTERVAL_MAX = 2000
+    let TEMPERATURE_CHANGE_ENGINE_MIN = 7
+    let TEMPERATURE_CHANGE_ENGINE_MAX = 15
+    let TEMPERATURE_CHANGE_FAN_MIN = 7
+    let TEMPERATURE_CHANGE_FAN_MAX = 15
+    let TEMPERATURE_CHANGE_ENV_MIN = 2
+    let TEMPERATURE_CHANGE_ENV_MAX = 5
+//------------DASHBOARD--------------
+    let DASHBOARD_TIME_INTERVAL = 300 
+//-------------MACHINE---------------
+    let MAX_SILENCE_INTERVAL = 6
+//--------------VIEWER---------------
+    let VIEWER_REFRESH_INTERVAL = 100
+    let FREEZ_MACHINE_INTERVAL = 3
