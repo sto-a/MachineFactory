@@ -1,9 +1,14 @@
+﻿
 //==========AKKA.NET==============
 open ActorSchema
 //==========MACHNE WIZARD==============
 open MachineWizard
 MachineWizard.Instance.init(stateControlActorRef)
 MachineWizard.Instance.Start()
+//==========ADMIN CONSOLE==============
+open AdminConsole
+AdminConsole.Instance.initActorStatisticList(system, [stateControlActorRef; dashboardActorRef; machineControlActorRef])
+AdminConsole.Instance.Start()
 //===========VIEWER====================
 open System
 open System.Windows.Forms
@@ -14,3 +19,4 @@ Application.SetCompatibleTextRenderingDefault(false)
 
 [<STAThread>]
 Application.Run(dashboardForm)
+

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
@@ -33,12 +33,11 @@
     <Compile Include="Dashboard.fs" />
     <Compile Include="MachineWizard.fs" />
     <Compile Include="Viewer.fs" />
+    <Compile Include="AdminConsole.fs" />
     <Compile Include="Actors.fs" />
     <Compile Include="ActorSchema.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.5.9" />

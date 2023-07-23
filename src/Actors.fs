@@ -189,25 +189,6 @@
 
         state0 (ADoNothing, None, 0)
 
-    let machineControlMsgFun (msg:MachineCommand) = MachineWizard.Instance.command msg
-
-    let stateControlMsgFun spawnChild (msg:MachineState) = 
-        let tn = 
-                match msg.t with
-                | t when t < 50.0 -> Less50
-                | t when t < 75.0 -> Less75
-                | t when t < 95.0 -> Less95
-                | _ -> Greater95
-        let ef: MachineStateValue =
-                match msg.engineOn, msg.fanOn with
-                | false, false ->   EngineOffFanOff
-                | false, true ->    EngineOffFanOn
-                | true, false ->    EngineOnFanOff
-                | true, true ->     EngineOnFanOn
-        let child = spawnChild
-        let messageChild : MachineMessage = {id = msg.id; t = tn; ef = ef }
-        child <! messageChild
-  
     let mapRouterActorFun spawnChild (cmpf:'a->'b) (mailbox: Actor<'a>) =
         let rec imp map = actor {
                 let! msg = mailbox.Receive()
@@ -227,5 +208,42 @@
             }
         imp Map.empty
 
-    let dashboardMsgFun cmd =
-        DashboardStore.Instance.Push cmd
+    open AdminConsole
+
+    type MachineControlActorType(name) as this =
+        inherit MessageStatistics(name)
+        do 
+            this.Receive<MachineCommand> (fun msg -> this.MenadgeAction; MachineWizard.Instance.command msg)
+
+    type StateControlActorType(name, spawnChild) as this =
+        inherit MessageStatistics(name)
+
+        do 
+            this.Receive<MachineState> (fun (msg:MachineState)-> 
+                this.MenadgeAction
+                let tn = 
+                    match msg.t with
+                    | t when t < 50.0 -> Less50
+                    | t when t < 75.0 -> Less75
+                    | t when t < 95.0 -> Less95
+                    | _ -> Greater95
+                let ef: MachineStateValue =
+                        match msg.engineOn, msg.fanOn with
+                        | false, false ->   EngineOffFanOff
+                        | false, true ->    EngineOffFanOn
+                        | true, false ->    EngineOnFanOff
+                        | true, true ->     EngineOnFanOn
+                let child = spawnChild
+                let messageChild : MachineMessage = {id = msg.id; t = tn; ef = ef }
+                child <! messageChild
+            )
+
+    type DashboardActorType(name) as this =
+        inherit MessageStatistics(name)
+
+        do
+            this.Receive<DashboardMessage> (fun msg ->
+                this.MenadgeAction
+                DashboardStore.Instance.Push msg
+            )
+        

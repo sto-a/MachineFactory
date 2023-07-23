@@ -1,7 +1,7 @@
 ﻿module Config
 
 //===========CONFIIG=================
-    let MACHINE_COUNT = 55
+    let MACHINE_COUNT = 100
 //------------MACHINE WIZARD---------
     let TIME_INTERVAL = 100 
     let PDROP_MACHINE_STATE_MESSAGE = 0.2

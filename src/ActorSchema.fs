@@ -15,13 +15,13 @@
 
     //------------------------------------------------------------
     let machineControlActorRef = 
-        actorOf machineControlMsgFun
-        |> spawn system "machine-control"
+        let name = "machine-control"
+        system.ActorOf(Props.Create(fun () -> new MachineControlActorType(name)), name)
 
     //------------------------------------------------------------
     let dashboardActorRef =
-        actorOf dashboardMsgFun
-        |> spawn system "dashboard"
+        let name = "dashboard"
+        system.ActorOf(Props.Create(fun () -> new DashboardActorType(name)), name)
 
     //------------------------------------------------------------
     let spawnChildMachine name mailbox=
@@ -33,6 +33,6 @@
 
     //------------------------------------------------------------
     let stateControlActorRef = 
-        actorOf (stateControlMsgFun machineMapRouterActorRef)
-        |> spawn system "state-control"
+        let name = "state-control"
+        system.ActorOf(Props.Create(fun () -> new StateControlActorType(name, machineMapRouterActorRef)), name)
 

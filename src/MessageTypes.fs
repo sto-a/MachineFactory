@@ -1,6 +1,6 @@
 ﻿module MessageTypes
 
- type TemperaturaStateValue =
+    type TemperaturaStateValue =
         | Less50
         | Less75
         | Less95
@@ -44,5 +44,11 @@
     }
 
     type DashboardMessage =
-    | Ticket of int     
-    | State of int*MachineStateValue  
+        | Ticket of int     
+        | State of int*MachineStateValue  
+
+    open Akka.Actor
+
+    type AdminMessage =
+        | Request of IActorRef
+        | Responce of string*int
